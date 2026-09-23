@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-scale: 1;
+  }
+
+  html.text-normal {
+    font-size: 16px;
+  }
+
+  html.text-large {
+    font-size: 18px;
+  }
+
+  html.text-xlarge {
+    font-size: 20px;
+  }
+
+  /* High Contrast mode overrides */
+  html.high-contrast {
+    background-color: #090d16 !important;
+    color: #ffffff !important;
+  }
+
+  html.high-contrast section,
+  html.high-contrast div.card,
+  html.high-contrast header,
+  html.high-contrast footer,
+  html.high-contrast input,
+  html.high-contrast textarea,
+  html.high-contrast button {
+    border-color: #f59e0b !important;
+  }
+
+  html.high-contrast button {
+    font-weight: 800 !important;
+  }
+
+  /* Reduce Motion overrides */
+  html.reduce-motion *,
+  html.reduce-motion *::before,
+  html.reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Civics Tech Gradient & Utility Classes */
+.bg-civic-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #0f172a 100%);
+}
+
+.bg-hero-glow {
+  background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-card,
+html.high-contrast .glass-card {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+/* Pulse animation for voice mic */
+@keyframes mic-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.mic-active {
+  animation: mic-pulse 1.5s infinite;
+}
