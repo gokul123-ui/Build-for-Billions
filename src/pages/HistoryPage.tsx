@@ -4,6 +4,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getAllComplaints, resetDemoComplaints } from '../services/storageService';
 import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
+import { GeoBadge } from '../components/GeoTagDisplay';
 import { 
   History, 
   Search, 
@@ -160,7 +161,10 @@ export const HistoryPage: React.FC = () => {
                   <span className="text-lg font-black text-amber-400 font-mono tracking-wider">
                     {item.id}
                   </span>
-                  <StatusBadge status={item.status} lang={lang} />
+                  <div className="flex items-center space-x-1.5">
+                    <GeoBadge geo={item.geoLocation} />
+                    <StatusBadge status={item.status} lang={lang} />
+                  </div>
                 </div>
 
                 <h3 className="text-base font-bold text-white mb-2">
@@ -176,6 +180,7 @@ export const HistoryPage: React.FC = () => {
                   <p className="flex items-center space-x-1.5">
                     <MapPin className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
                     <span>{item.location}, {item.district}</span>
+                    {item.geoLocation && <span className="ml-1 font-mono text-[10px] text-slate-500">• {item.geoLocation.latitude.toFixed(4)}, {item.geoLocation.longitude.toFixed(4)}</span>}
                   </p>
 
                   <p className="flex items-center space-x-1.5">

@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
 import { saveComplaint } from '../services/storageService';
 import { Priority } from '../types';
+import { GeoTagDisplay } from '../components/GeoTagDisplay';
 import { 
   Building2, 
   MapPin, 
@@ -136,7 +137,13 @@ export const ReviewComplaintPage: React.FC = () => {
           <p className="text-base font-semibold text-white">
             {draft.location}, {draft.district}, {draft.state}
           </p>
+          {draft.geoLocation && draft.geoLocation.address && (
+            <p className="text-xs text-slate-400 mt-1">📍 GPS: {draft.geoLocation.address}</p>
+          )}
         </div>
+
+        {/* Geotag Map Verification */}
+        <GeoTagDisplay geo={draft.geoLocation || null} />
 
         {/* Citizen Original Description */}
         <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">

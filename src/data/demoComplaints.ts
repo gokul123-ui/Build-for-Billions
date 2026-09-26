@@ -36,6 +36,16 @@ export const INITIAL_DEMO_COMPLAINTS: ComplaintData[] = [
       ta: "குழாய் அடைப்பு மற்றும் வால்வுகளை உடனடியாக ஆய்வு செய்து குடிநீர் விநியோகத்தை சீரமைக்கவும்.",
       hi: "पाइपलाइन रिसाव/वाल्व का तुरंत निरीक्षण करें और सामान्य पेयजल आपूर्ति बहाल करें।"
     },
+    geoLocation: {
+      latitude: 13.0827,
+      longitude: 80.2100,
+      accuracy: 18,
+      address: "Anna Nagar 4th Main Road, Chennai, Tamil Nadu 600040, India",
+      ward: "Ward 8",
+      pincode: "600040",
+      timestamp: "2026-09-20T09:30:00.000Z",
+      source: "gps"
+    },
     status: "In Progress",
     createdAt: "2026-09-20T09:30:00.000Z",
     updatedAt: "2026-09-22T14:15:00.000Z",
@@ -112,6 +122,16 @@ export const INITIAL_DEMO_COMPLAINTS: ComplaintData[] = [
       en: "Replace burnt LED bulbs and repair central lighting cable connector.",
       ta: "பழுதான எல்.இ.டி விளக்குகளை மாற்றி மின் இணைப்பைச் சீரமைக்கவும்.",
       hi: "जले हुए एलईडी बल्बों को बदलें और केंद्रीय प्रकाश केबल कनेक्टर की मरम्मत करें।"
+    },
+    geoLocation: {
+      latitude: 26.9124,
+      longitude: 75.7873,
+      accuracy: 32,
+      address: "Vaishali Nagar Main Chowk, Jaipur, Rajasthan 302021, India",
+      ward: "Ward 12",
+      pincode: "302021",
+      timestamp: "2026-09-18T16:00:00.000Z",
+      source: "gps"
     },
     status: "Resolved",
     createdAt: "2026-09-18T16:00:00.000Z",
@@ -198,6 +218,16 @@ export const INITIAL_DEMO_COMPLAINTS: ComplaintData[] = [
       en: "Deploy cold-mix asphalt patch team immediately to level the road surface.",
       ta: "சாலையைச் சீரமைக்கத் தார் பூச்சுக் குழுவை உடனடியாக அனுப்பவும்.",
       hi: "सड़क की सतह को समतल करने के लिए तुरंत पैच वर्क टीम तैनात करें।"
+    },
+    geoLocation: {
+      latitude: 12.9784,
+      longitude: 77.6408,
+      accuracy: 22,
+      address: "Indiranagar 100ft Road, Bengaluru, Karnataka 560038, India",
+      ward: "Ward 5",
+      pincode: "560038",
+      timestamp: "2026-09-23T08:15:00.000Z",
+      source: "gps"
     },
     status: "Under Review",
     createdAt: "2026-09-23T08:15:00.000Z",

@@ -9,6 +9,7 @@ import { SuccessPage } from './pages/SuccessPage';
 import { TrackComplaintPage } from './pages/TrackComplaintPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { GovernmentMapPage } from './pages/GovernmentMapPage';
 import { HelpPage } from './pages/HelpPage';
 import { AccessibilityPage } from './pages/AccessibilityPage';
 import { useAccessibility } from './hooks/useAccessibility';
@@ -32,6 +33,9 @@ export const App: React.FC = () => {
             <Route path="/track/:id" element={<TrackComplaintPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/government" element={<GovernmentMapPage />} />
+            <Route path="/gov-map" element={<GovernmentMapPage />} />
+            <Route path="/map" element={<GovernmentMapPage />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/accessibility" element={<AccessibilityPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

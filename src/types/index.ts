@@ -33,12 +33,24 @@ export interface CategoryInfo {
   description: Record<Language, string>;
 }
 
+export interface GeoLocation {
+  latitude: number;
+  longitude: number;
+  accuracy?: number; // meters
+  address?: string; // reverse geocoded display address
+  ward?: string;
+  pincode?: string;
+  timestamp?: string; // ISO string when captured
+  source?: 'gps' | 'manual' | 'map-picker';
+}
+
 export interface ComplaintData {
   id: string;
   citizenDescription: string;
   location: string;
   district: string;
   state: string;
+  geoLocation?: GeoLocation | null;
   contactName?: string;
   contactPhone?: string;
   contactEmail?: string;

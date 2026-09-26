@@ -14,7 +14,9 @@ import {
   Clock, 
   ArrowRight,
   ShieldCheck,
-  CheckCircle
+  CheckCircle,
+  MapPin,
+  Navigation
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
@@ -109,6 +111,30 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* GEOTAGGING UNIQUE DIFFERENTIATOR BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-amber-950 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-6 shadow-xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(16,185,129,0.15),transparent_50%)] pointer-events-none"></div>
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-amber-500 flex items-center justify-center text-white shadow-lg flex-shrink-0 relative z-10">
+            <Navigation className="w-7 h-7" />
+          </div>
+          <div className="flex-1 relative z-10 text-center lg:text-left">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-black uppercase tracking-widest mb-2">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>★ Unique Feature — GPS-Verified Geotagging</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white">Every Complaint, Pin-Point Accurate</h3>
+            <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+              One-tap <span className="text-amber-400 font-bold">“Use My Location”</span> captures GPS, reverse-geocodes via OpenStreetMap to ward & pincode, and shows a draggable map pin with accuracy radius. Field officers get the exact pothole / broken light / garbage pile — not just a street name. <span className="text-emerald-400 font-semibold">Ward auto-detection • No API key • Offline-ready</span>
+            </p>
+          </div>
+          <Link to="/submit" className="relative z-10 inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-500 text-slate-950 font-black text-sm shadow-lg hover:scale-105 transition-transform flex-shrink-0">
+            <MapPin className="w-4 h-4" />
+            <span>Try Geotag Now</span>
+          </Link>
+        </div>
+      </section>
+
       {/* HOW IT WORKS / FEATURES SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -118,7 +144,7 @@ export const LandingPage: React.FC = () => {
           <div className="w-20 h-1.5 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto rounded-full mb-4"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-md hover:border-amber-500/40 transition-colors">
             <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
@@ -150,6 +176,15 @@ export const LandingPage: React.FC = () => {
             </div>
             <h3 className="text-lg font-bold text-white mb-2">{t('feature4Title')}</h3>
             <p className="text-sm text-slate-400 leading-relaxed">{t('feature4Desc')}</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-950 to-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-md hover:border-emerald-400/50 transition-colors relative overflow-hidden">
+            <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black">NEW</div>
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+              <MapPin className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">GPS Geotag & Ward Map</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">One-tap GPS capture, draggable OSM pin, ward & pincode auto-detected. Officers see exact location + accuracy radius for 3× faster dispatch.</p>
           </div>
 
         </div>

@@ -136,6 +136,20 @@ export function advanceComplaintStatus(id: string): ComplaintData | null {
   return updatedComplaint;
 }
 
+export function updateComplaintGeoLocation(id: string, geo: import('../types').GeoLocation): ComplaintData | null {
+  const complaints = getAllComplaints();
+  const idx = complaints.findIndex(c => c.id.toUpperCase() === id.toUpperCase());
+  if (idx === -1) return null;
+  const updated: ComplaintData = { ...complaints[idx], geoLocation: geo, updatedAt: new Date().toISOString() };
+  complaints[idx] = updated;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(complaints));
+  } catch (e) {
+    console.error("Error updating geoLocation:", e);
+  }
+  return updated;
+}
+
 export function resetDemoComplaints(): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_DEMO_COMPLAINTS));

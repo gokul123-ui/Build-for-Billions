@@ -4,6 +4,8 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getAllComplaints } from '../services/storageService';
 import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
+import { GeoBadge } from '../components/GeoTagDisplay';
+import { ComplaintMapOverview } from '../components/ComplaintMapOverview';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -15,7 +17,8 @@ import {
   History, 
   ArrowRight,
   Building2,
-  MapPin
+  MapPin,
+  MapPinned
 } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
@@ -141,6 +144,23 @@ export const DashboardPage: React.FC = () => {
 
       </div>
 
+      {/* Gov Unified Map CTA */}
+      <Link to="/government" className="block bg-gradient-to-r from-slate-900 via-indigo-950 to-emerald-950 border border-amber-500/30 rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 hover:border-amber-500/50 transition-colors">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-emerald-500 flex items-center justify-center text-slate-950">
+            <MapPinned className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-sm font-black text-white">Government Unified Map — All Problems Pinned</p>
+            <p className="text-xs text-slate-400">Single map • Every geotagged complaint • Filter by status/category • Ward clusters</p>
+          </div>
+        </div>
+        <span className="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-black text-xs">Open Gov Map →</span>
+      </Link>
+
+      {/* Geotagged Map Overview - UNIQUE FEATURE */}
+      <ComplaintMapOverview complaints={complaints} />
+
       {/* Recent Activity List */}
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl text-white">
         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
@@ -162,6 +182,7 @@ export const DashboardPage: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <span className="font-mono font-bold text-amber-400 text-sm">{item.id}</span>
                     <StatusBadge status={item.status} lang={lang} />
+                    <GeoBadge geo={item.geoLocation} />
                   </div>
                   <h4 className="text-sm font-bold text-white">
                     {item.issueTitle[lang] || item.issueTitle.en}

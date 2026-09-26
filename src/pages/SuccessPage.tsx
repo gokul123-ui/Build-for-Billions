@@ -4,6 +4,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getComplaintById } from '../services/storageService';
 import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
+import { GeoTagDisplay } from '../components/GeoTagDisplay';
 import { 
   CheckCircle2, 
   Search, 
@@ -113,6 +114,13 @@ export const SuccessPage: React.FC = () => {
               <span className="text-slate-400 font-semibold">Initial Status:</span>
               <StatusBadge status={complaint.status} lang={lang} />
             </div>
+          </div>
+        )}
+
+        {/* Geotag confirmation */}
+        {complaint?.geoLocation && (
+          <div className="max-w-md mx-auto text-left">
+            <GeoTagDisplay geo={complaint.geoLocation} compact />
           </div>
         )}
 
