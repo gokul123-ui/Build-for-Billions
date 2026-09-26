@@ -100,9 +100,11 @@ export const hi = {
   complaintIdPreview: "जनरेट की गई संदर्भ आईडी",
 
   // Priority Labels
-  priorityHigh: "उच्च प्राथमिकता",
-  priorityMedium: "मध्यम प्राथमिकता",
-  priorityLow: "निम्न प्राथमिकता",
+  priorityEmergency: "🚨 आपातकाल — 24 घंटे SLA",
+  priorityUrgent: "⚡ अत्यावश्यक — 48 घंटे SLA",
+  priorityHigh: "उच्च प्राथमिकता — 72 घंटे",
+  priorityMedium: "मध्यम प्राथमिकता — 7 दिन",
+  priorityLow: "निम्न प्राथमिकता — 14 दिन",
 
   // Success Page
   successTitle: "शिकायत सफलतापूर्वक दर्ज की गई!",

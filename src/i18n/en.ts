@@ -100,9 +100,11 @@ export const en = {
   complaintIdPreview: "Generated Reference ID",
 
   // Priority Labels
-  priorityHigh: "High Priority",
-  priorityMedium: "Medium Priority",
-  priorityLow: "Low Priority",
+  priorityEmergency: "🚨 Emergency — 24h SLA",
+  priorityUrgent: "⚡ Urgent — 48h SLA",
+  priorityHigh: "High Priority — 72h SLA",
+  priorityMedium: "Medium Priority — 7d SLA",
+  priorityLow: "Low Priority — 14d SLA",
 
   // Success Page
   successTitle: "Complaint Submitted Successfully!",

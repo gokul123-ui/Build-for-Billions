@@ -1,5 +1,6 @@
 import { AnalysisResult, CategoryId, Language, Priority } from '../types';
 import { CATEGORIES, getCategoryById } from '../data/categories';
+import { detectPriority } from './priorityService';
 
 // Multilingual keyword dictionary for classification
 const KEYWORD_MAP: Record<CategoryId, { en: string[]; ta: string[]; hi: string[] }> = {
@@ -113,20 +114,8 @@ function runRuleBasedClassifier(description: string, targetLang: Language): Anal
 
   const categoryInfo = getCategoryById(bestCategory);
 
-  // Priority detection
-  let priority: Priority = 'Medium';
-  const highPriorityKeywords = [
-    'urgent', 'danger', 'hazard', 'hospital', 'fire', 'leak', 'accident', 'days', '3 days', 'week', 'blood',
-    'உடனடி', 'ஆபத்து', '3 நாட்கள்', 'நாட்களாக', 'மருத்துவமனை', 'அவசியம்',
-    'तुरंत', 'खतरा', '3 दिन', 'तीन दिन', 'अस्पताल', 'गंभीर', 'दुर्घटना'
-  ];
-
-  for (const hpkw of highPriorityKeywords) {
-    if (lowerDesc.includes(hpkw.toLowerCase())) {
-      priority = 'High';
-      break;
-    }
-  }
+  // Priority detection via triage service (Emergency > Urgent > High > Medium > Low, multilingual)
+  const { priority } = detectPriority(description, bestCategory);
 
   // Generate multi-lingual issue titles, AI summaries, and requested actions
   const issueTitle: Record<Language, string> = {

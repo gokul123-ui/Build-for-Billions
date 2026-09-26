@@ -1,6 +1,6 @@
 export type Language = 'en' | 'ta' | 'hi';
 
-export type Priority = 'High' | 'Medium' | 'Low';
+export type Priority = 'Emergency' | 'Urgent' | 'High' | 'Medium' | 'Low';
 
 export type GrievanceStatus = 
   | 'Submitted'

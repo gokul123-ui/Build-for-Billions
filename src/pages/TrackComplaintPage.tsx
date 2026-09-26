@@ -7,6 +7,8 @@ import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
 import { Timeline } from '../components/Timeline';
 import { GeoTagDisplay } from '../components/GeoTagDisplay';
+import { PriorityBadge } from '../components/PriorityBadge';
+import { SLAIndicator } from '../components/SLAIndicator';
 import { 
   Search, 
   Building2, 
@@ -140,10 +142,11 @@ export const TrackComplaintPage: React.FC = () => {
               {/* Header Info */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                 <div>
-                  <div className="flex items-center space-x-3 mb-1">
+                  <div className="flex items-center space-x-3 mb-1 flex-wrap gap-2">
                     <span className="text-2xl font-black text-amber-400 font-mono tracking-wider">
                       {complaint.id}
                     </span>
+                    <PriorityBadge priority={complaint.priority} size="sm" />
                     <StatusBadge status={complaint.status} lang={lang} />
                   </div>
                   <h3 className="text-lg font-bold text-white">
@@ -218,6 +221,9 @@ export const TrackComplaintPage: React.FC = () => {
                   "{complaint.citizenDescription}"
                 </p>
               </div>
+
+              {/* SLA for municipality */}
+              <SLAIndicator complaint={complaint} />
 
               {/* Geotag Map + Retro Geotag Editor */}
               <GeoTagDisplay geo={complaint.geoLocation} />

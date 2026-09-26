@@ -5,6 +5,8 @@ import { getAllComplaints, resetDemoComplaints } from '../services/storageServic
 import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
 import { GeoBadge } from '../components/GeoTagDisplay';
+import { PriorityBadge } from '../components/PriorityBadge';
+import { sortByPriority } from '../services/priorityService';
 import { 
   History, 
   Search, 
@@ -21,6 +23,7 @@ export const HistoryPage: React.FC = () => {
   const { lang, t } = useLanguage();
   const [complaints, setComplaints] = useState<ComplaintData[]>([]);
   const [filterStatus, setFilterStatus] = useState<'ALL' | 'ACTIVE' | 'RESOLVED'>('ALL');
+  const [priorityOrder, setPriorityOrder] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   const loadData = () => {
@@ -36,25 +39,26 @@ export const HistoryPage: React.FC = () => {
     loadData();
   };
 
-  // Filtered List
-  const filtered = complaints.filter(c => {
-    const matchesFilter = 
-      filterStatus === 'ALL' ? true :
-      filterStatus === 'RESOLVED' ? c.status === 'Resolved' :
-      c.status !== 'Resolved';
-
-    const searchLower = searchTerm.toLowerCase();
-    const issueText = (c.issueTitle[lang] || c.issueTitle.en).toLowerCase();
-    const deptText = (c.departmentName[lang] || c.departmentName.en).toLowerCase();
-    const matchesSearch = 
-      c.id.toLowerCase().includes(searchLower) ||
-      c.location.toLowerCase().includes(searchLower) ||
-      c.district.toLowerCase().includes(searchLower) ||
-      issueText.includes(searchLower) ||
-      deptText.includes(searchLower);
-
-    return matchesFilter && matchesSearch;
-  });
+  // Filtered List - priority-ordered for municipality (Emergency → Low)
+  const filtered = (() => {
+    const base = complaints.filter(c => {
+      const matchesFilter = 
+        filterStatus === 'ALL' ? true :
+        filterStatus === 'RESOLVED' ? c.status === 'Resolved' :
+        c.status !== 'Resolved';
+      const searchLower = searchTerm.toLowerCase();
+      const issueText = (c.issueTitle[lang] || c.issueTitle.en).toLowerCase();
+      const deptText = (c.departmentName[lang] || c.departmentName.en).toLowerCase();
+      const matchesSearch = 
+        c.id.toLowerCase().includes(searchLower) ||
+        c.location.toLowerCase().includes(searchLower) ||
+        c.district.toLowerCase().includes(searchLower) ||
+        issueText.includes(searchLower) ||
+        deptText.includes(searchLower);
+      return matchesFilter && matchesSearch;
+    });
+    return priorityOrder ? sortByPriority(base) : base;
+  })();
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-8">
@@ -94,58 +98,21 @@ export const HistoryPage: React.FC = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
-        
-        {/* Status Filter Pills */}
-        <div className="flex items-center space-x-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
-          <Filter className="w-4 h-4 text-slate-400 mr-1 flex-shrink-0" />
-          
-          <button
-            onClick={() => setFilterStatus('ALL')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-              filterStatus === 'ALL'
-                ? 'bg-amber-500 text-slate-950 shadow-md'
-                : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'
-            }`}
-          >
-            {t('filterAll')} ({complaints.length})
-          </button>
-
-          <button
-            onClick={() => setFilterStatus('ACTIVE')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-              filterStatus === 'ACTIVE'
-                ? 'bg-amber-500 text-slate-950 shadow-md'
-                : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'
-            }`}
-          >
-            {t('filterActive')} ({complaints.filter(c => c.status !== 'Resolved').length})
-          </button>
-
-          <button
-            onClick={() => setFilterStatus('RESOLVED')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-              filterStatus === 'RESOLVED'
-                ? 'bg-amber-500 text-slate-950 shadow-md'
-                : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'
-            }`}
-          >
-            {t('filterResolved')} ({complaints.filter(c => c.status === 'Resolved').length})
-          </button>
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <div className="flex items-center space-x-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
+            <Filter className="w-4 h-4 text-slate-400 mr-1 flex-shrink-0" />
+            <button onClick={() => setFilterStatus('ALL')} className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${filterStatus === 'ALL' ? 'bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'}`}>{t('filterAll')} ({complaints.length})</button>
+            <button onClick={() => setFilterStatus('ACTIVE')} className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${filterStatus === 'ACTIVE' ? 'bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'}`}>{t('filterActive')} ({complaints.filter(c => c.status !== 'Resolved').length})</button>
+            <button onClick={() => setFilterStatus('RESOLVED')} className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${filterStatus === 'RESOLVED' ? 'bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800'}`}>{t('filterResolved')} ({complaints.filter(c => c.status === 'Resolved').length})</button>
+            <button onClick={() => setPriorityOrder(v => !v)} className={`px-3 py-1.5 rounded-lg text-xs font-black border whitespace-nowrap ${priorityOrder ? 'bg-red-600 text-white border-red-500' : 'bg-slate-950 text-slate-300 border-slate-800'}`}>{priorityOrder ? '🚨 Priority Order ON' : 'Priority Order OFF'}</button>
+          </div>
+          <div className="relative w-full sm:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs font-medium focus:border-amber-500" />
+          </div>
         </div>
-
-        {/* Search Input */}
-        <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder={t('searchPlaceholder')}
-            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs font-medium focus:border-amber-500"
-          />
-        </div>
-
+        <p className="text-[11px] text-slate-500">Sorted Emergency (24h) → Urgent (48h) → High (72h) → Medium (7d) → Low (14d) • FIFO within tier</p>
       </div>
 
       {/* Complaints Grid / List */}
@@ -162,6 +129,7 @@ export const HistoryPage: React.FC = () => {
                     {item.id}
                   </span>
                   <div className="flex items-center space-x-1.5">
+                    <PriorityBadge priority={item.priority} size="sm" />
                     <GeoBadge geo={item.geoLocation} />
                     <StatusBadge status={item.status} lang={lang} />
                   </div>

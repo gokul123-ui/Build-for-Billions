@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
 import { saveComplaint } from '../services/storageService';
-import { Priority } from '../types';
 import { GeoTagDisplay } from '../components/GeoTagDisplay';
+import { PriorityBadge } from '../components/PriorityBadge';
 import { 
   Building2, 
   MapPin, 
@@ -52,18 +52,7 @@ export const ReviewComplaintPage: React.FC = () => {
     navigate(`/success/${saved.id}`);
   };
 
-  const priorityColor = (p: Priority) => {
-    switch (p) {
-      case 'High':
-        return 'bg-red-500/10 text-red-400 border-red-500/30';
-      case 'Medium':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
-      case 'Low':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
-      default:
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
-    }
-  };
+
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
@@ -94,13 +83,11 @@ export const ReviewComplaintPage: React.FC = () => {
           </div>
 
           <div className="space-y-1 md:text-right">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('priorityLevel')}</span>
-            <div>
-              <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold border ${priorityColor(draft.priority)}`}>
-                <ShieldAlert className="w-3.5 h-3.5" />
-                <span>{draft.priority === 'High' ? t('priorityHigh') : draft.priority === 'Medium' ? t('priorityMedium') : t('priorityLow')}</span>
-              </span>
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('priorityLevel')} • Municipality will do in this order</span>
+            <div className="flex justify-end">
+              <PriorityBadge priority={draft.priority} />
             </div>
+            <p className="text-[11px] text-slate-500">Emergency 24h → Urgent 48h → High 72h → Medium 7d → Low 14d</p>
           </div>
 
         </div>

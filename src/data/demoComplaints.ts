@@ -25,14 +25,14 @@ export const INITIAL_DEMO_COMPLAINTS: ComplaintData[] = [
       ta: "குடிநீர் விநியோகம் தடையாதல்",
       hi: "पेयजल आपूर्ति में व्यवधान"
     },
-    priority: "High",
+    priority: "Urgent",
     aiSummary: {
-      en: "Drinking water supply has been completely halted for the past 3 days in Anna Nagar 4th Main Road causing severe hardship to residents.",
+      en: "🚨 Urgent: Drinking water supply halted for 3 days in Anna Nagar — 48h SLA. Severe hardship, risk of dehydration. AI triaged as Urgent.",
       ta: "அண்ணா நகர் 4வது மெயின் ரோடு பகுதியில் கடந்த 3 நாட்களாக குடிநீர் விநியோகம் முற்றிலும் தடைபட்டுள்ளதால் பொதுமக்கள் அவதிப்படுகின்றனர்.",
       hi: "अण्णा नगर 4थ मेन रोड में पिछले 3 दिनों से पेयजल आपूर्ति पूरी तरह से ठप है, जिससे निवासियों को भारी परेशानी हो रही है।"
     },
     requestedAction: {
-      en: "Inspect pipeline leaks/valves immediately and restore normal drinking water supply.",
+      en: "Priority Order #2 — Urgent Queue: Inspect pipeline leaks/valves within 24h and restore supply within 48h SLA.",
       ta: "குழாய் அடைப்பு மற்றும் வால்வுகளை உடனடியாக ஆய்வு செய்து குடிநீர் விநியோகத்தை சீரமைக்கவும்.",
       hi: "पाइपलाइन रिसाव/वाल्व का तुरंत निरीक्षण करें और सामान्य पेयजल आपूर्ति बहाल करें।"
     },
@@ -249,6 +249,54 @@ export const INITIAL_DEMO_COMPLAINTS: ComplaintData[] = [
           en: "PWD Control Room assessing complaint photo & location.",
           ta: "பொதுப்பணித் துறை கட்டுப்பாட்டு மையம் புகாரை ஆய்வு செய்கிறது.",
           hi: "पीडब्ल्यूडी नियंत्रण कक्ष शिकायत की स्थान समीक्षा कर रहा है।"
+        }
+      }
+    ]
+  },
+  {
+    id: "JNC-2026-0004",
+    citizenDescription: "Emergency: Open manhole near government school, 5ft deep, children walk here daily. Sewage overflow and live electric wire hanging nearby — immediate danger!",
+    location: "MG Road, Near Govt School Gate",
+    district: "Chennai",
+    state: "Tamil Nadu",
+    contactName: "Priya Nair",
+    contactPhone: "9123456780",
+    categoryId: "drainage",
+    categoryName: { en: "Drainage & Sewage", ta: "கழிவுநீர் மற்றும் சாக்கடை", hi: "जल निकासी और सीवरेज" },
+    departmentName: { en: "Underground Drainage & Sewerage Board", ta: "பாதாள சாக்கடை மற்றும் கழிவுநீர் வாரியம்", hi: "भूमिगत जल निकासी एवं सीवरेज बोर्ड" },
+    issueTitle: { en: "🚨 Emergency: Open Manhole + Live Wire Near School", ta: "🚨 அவசரநிலை: பள்ளி அருகே திறந்த சாக்கடை", hi: "🚨 आपातकाल: स्कूल के पास खुला मैनहोल" },
+    priority: "Emergency",
+    aiSummary: {
+      en: "🚨 EMERGENCY 24h SLA: Open 5ft manhole + sewage overflow + live wire near Govt School. AI triaged as Emergency — life/safety risk to children. Queue #1 — dispatch now.",
+      ta: "🚨 அவசரநிலை 24 மணி SLA: பள்ளி அருகே திறந்த சாக்கடை, கழிவுநீர் வழிதல், தொங்கும் மின்கம்பி — குழந்தைகளுக்கு உயிர் ஆபத்து.",
+      hi: "🚨 आपातकाल 24 घंटे SLA: स्कूल के पास 5 फीट खुला मैनहोल, सीवर ओवरफ्लो और लटकता बिजली तार — बच्चों के लिए जानलेवा।"
+    },
+    requestedAction: {
+      en: "PRIORITY #1 — Emergency Queue: Barricade & cover manhole within 4h, isolate live wire, dewater sewage within 24h SLA. Notify nodal officer immediately.",
+      ta: "முன்னுரிமை #1 — உடனடியாக தடுப்பு அமைத்து மேன்ஹோலை மூடவும், மின் இணைப்பை துண்டிக்கவும்.",
+      hi: "प्राथमिकता #1 — 4 घंटे में बैरिकेड लगाएं, मैनहोल कवर करें, 24 घंटे में निस्तारण करें।"
+    },
+    geoLocation: {
+      latitude: 13.067,
+      longitude: 80.236,
+      accuracy: 12,
+      address: "MG Road Govt School Gate, Chennai, Tamil Nadu 600006, India",
+      ward: "Ward 6",
+      pincode: "600006",
+      timestamp: "2026-09-24T06:00:00.000Z",
+      source: "gps"
+    },
+    status: "Submitted",
+    createdAt: "2026-09-24T06:00:00.000Z",
+    updatedAt: "2026-09-24T06:00:00.000Z",
+    statusHistory: [
+      {
+        status: "Submitted",
+        timestamp: "2026-09-24T06:00:00.000Z",
+        note: {
+          en: "🚨 Emergency triaged: open manhole near school — 24h SLA, queue #1. Routed to Drainage Board + Safety cell.",
+          ta: "🚨 அவசரநிலையாக வகைப்படுத்தப்பட்டது — 24 மணி SLA.",
+          hi: "🚨 आपातकाल के रूप में वर्गीकृत — 24 घंटे SLA।"
         }
       }
     ]

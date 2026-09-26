@@ -100,9 +100,11 @@ export const ta = {
   complaintIdPreview: "உருவாக்கப்பட்ட குறிப்பு எண்",
 
   // Priority Labels
-  priorityHigh: "உயர் முன்னுரிமை",
-  priorityMedium: "நடுத்தர முன்னுரிமை",
-  priorityLow: "குறைந்த முன்னுரிமை",
+  priorityEmergency: "🚨 அவசரநிலை — 24 மணி SLA",
+  priorityUrgent: "⚡ அவசரம் — 48 மணி SLA",
+  priorityHigh: "உயர் முன்னுரிமை — 72 மணி",
+  priorityMedium: "நடுத்தர முன்னுரிமை — 7 நாட்கள்",
+  priorityLow: "குறைந்த முன்னுரிமை — 14 நாட்கள்",
 
   // Success Page
   successTitle: "புகார் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!",
