@@ -14,7 +14,8 @@ import {
   Eye, 
   LayoutDashboard,
   Building2,
-  SlidersHorizontal
+  SlidersHorizontal,
+  MapPinned
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -30,6 +31,7 @@ export const Header: React.FC = () => {
     { path: '/', label: t('navHome'), icon: Building2 },
     { path: '/submit', label: t('navSubmit'), icon: PlusCircle },
     { path: '/track', label: t('navTrack'), icon: Search },
+    { path: '/government', label: 'Gov Map', icon: MapPinned },
     { path: '/history', label: t('navHistory'), icon: History },
     { path: '/dashboard', label: t('navDashboard'), icon: LayoutDashboard },
     { path: '/help', label: t('navHelp'), icon: HelpCircle },

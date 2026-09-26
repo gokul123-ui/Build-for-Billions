@@ -3,7 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
 import { classifyComplaint } from '../services/aiClassifier';
 import { startSpeechRecognition, stopSpeechRecognition, isSpeechRecognitionSupported } from '../services/speechRecognition';
-import { AnalysisResult } from '../types';
+import { AnalysisResult, GeoLocation } from '../types';
+import { GeoTagPicker } from '../components/GeoTagPicker';
 import { 
   Mic, 
   MicOff, 
@@ -30,6 +31,9 @@ export const SubmitComplaintPage: React.FC = () => {
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
   const [contactEmail, setContactEmail] = useState('');
+
+  // Geotag state
+  const [geoLocation, setGeoLocation] = useState<GeoLocation | null>(null);
 
   // Voice State
   const [isListening, setIsListening] = useState(false);
@@ -59,30 +63,35 @@ export const SubmitComplaintPage: React.FC = () => {
         setLocation('அண்ணா நகர் 4வது தெரு');
         setDistrict('சென்னை');
         setState('தமிழ்நாடு');
+        setGeoLocation({ latitude: 13.0827, longitude: 80.2100, accuracy: 20, address: 'Anna Nagar 4th Main Road, Chennai, Tamil Nadu 600040', ward: 'Ward 8', pincode: '600040', timestamp: new Date().toISOString(), source: 'gps' });
         break;
       case 'water_hi':
         setDescription('हमारे इलाके में पिछले तीन दिनों से पानी की आपूर्ति नहीं हो रही है।');
         setLocation('वैशाली नगर मुख्य चौराहा');
         setDistrict('जयपुर');
         setState('राजस्थान');
+        setGeoLocation({ latitude: 26.9124, longitude: 75.7873, accuracy: 35, address: 'Vaishali Nagar Main Chowk, Jaipur, Rajasthan 302021', ward: 'Ward 12', pincode: '302021', timestamp: new Date().toISOString(), source: 'gps' });
         break;
       case 'water_en':
         setDescription('There has been no drinking water supply in our area for three days.');
         setLocation('Indiranagar 100ft Road');
         setDistrict('Bengaluru');
         setState('Karnataka');
+        setGeoLocation({ latitude: 12.9784, longitude: 77.6408, accuracy: 18, address: 'Indiranagar 100ft Road, Bengaluru, Karnataka 560038', ward: 'Ward 5', pincode: '560038', timestamp: new Date().toISOString(), source: 'gps' });
         break;
       case 'garbage_ta':
         setDescription('எங்கள் வீட்டின் அருகில் குப்பைகள் அகற்றப்படாமல் துர்நாற்றம் வீசுகிறது.');
         setLocation('காந்தி ரோடு, ரேஸ் கோர்ஸ்');
         setDistrict('கோயம்புத்தூர்');
         setState('தமிழ்நாடு');
+        setGeoLocation({ latitude: 11.0168, longitude: 76.9558, accuracy: 42, address: 'Gandhi Road, Race Course, Coimbatore, Tamil Nadu 641018', ward: 'Ward 3', pincode: '641018', timestamp: new Date().toISOString(), source: 'gps' });
         break;
       case 'pothole_hi':
         setDescription('मुख्य मार्ग पर बड़े-बड़े गड्ढे हैं, जिससे दुर्घटना का खतरा है।');
         setLocation('लक्ष्मी नगर मेट्रो स्टेशन के पास');
         setDistrict('दिल्ली');
         setState('दिल्ली NCR');
+        setGeoLocation({ latitude: 28.6340, longitude: 77.2770, accuracy: 28, address: 'Laxmi Nagar Metro Station, Delhi 110092', ward: 'Ward 14', pincode: '110092', timestamp: new Date().toISOString(), source: 'gps' });
         break;
     }
     setErrorMessage(null);
@@ -147,6 +156,7 @@ export const SubmitComplaintPage: React.FC = () => {
             location,
             district,
             state,
+            geoLocation,
             contactName,
             contactPhone,
             contactEmail,
@@ -333,6 +343,18 @@ export const SubmitComplaintPage: React.FC = () => {
           </div>
 
         </div>
+
+        {/* Geotagging Section - UNIQUE DIFFERENTIATOR */}
+        <GeoTagPicker 
+          value={geoLocation} 
+          onChange={setGeoLocation}
+          onAddressResolved={(res) => {
+            if (res.district && res.state) {
+              // Optionally auto-suggest district/state from GPS, but don't override if user typed
+              // We show hint instead of forcing
+            }
+          }}
+        />
 
         {/* Optional Contact Details */}
         <div className="border-t border-slate-800 pt-6 space-y-4">

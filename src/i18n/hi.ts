@@ -181,6 +181,17 @@ export const hi = {
   footerContact: "शिकायत हेल्पलाइन",
   copyright: "© 2026 जनकनेक्ट। एआई और सुगमता के साथ नागरिकों के लिए निर्मित।",
 
+  // Geotagging
+  geoTitle: "जियोटैग स्थान (विशिष्ट सुविधा)",
+  geoDesc: "GPS + OSM पिन से फील्ड टीम सटीक स्थान पर पहुँचती है — वार्ड स्वतः पहचान।",
+  geoConsent: "GPS निर्देशांक संलग्न करें",
+  geoUseMyLocation: "मेरी वर्तमान स्थिति का उपयोग करें",
+  geoAccuracy: "GPS सटीकता",
+  geoNoTag: "कोई जियोटैग नहीं",
+  geoVerified: "GPS सत्यापित",
+  geoWard: "वार्ड",
+  geoOpenInMaps: "मानचित्र में खोलें",
+
   // Validation & Errors
   errorEmptyDesc: "कृपया अपनी समस्या का विवरण दर्ज करें या बोलें।",
   errorEmptyLoc: "कृपया अपने क्षेत्र/गली के विवरण दर्ज करें।",

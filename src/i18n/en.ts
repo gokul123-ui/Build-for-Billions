@@ -181,6 +181,17 @@ export const en = {
   footerContact: "Grievance Helpdesk",
   copyright: "© 2026 JanConnect. Built for Citizens with AI & Accessibility.",
 
+  // Geotagging
+  geoTitle: "Geotag Location (Unique Feature)",
+  geoDesc: "GPS + OSM map pin ensures field crew reaches the exact spot — ward auto-detected.",
+  geoConsent: "Attach GPS coordinates",
+  geoUseMyLocation: "Use My Current Location",
+  geoAccuracy: "GPS Accuracy",
+  geoNoTag: "No geotag attached",
+  geoVerified: "GPS Verified",
+  geoWard: "Ward",
+  geoOpenInMaps: "Open in Maps",
+
   // Validation & Errors
   errorEmptyDesc: "Please enter or speak a description of your problem.",
   errorEmptyLoc: "Please enter your location/street details.",

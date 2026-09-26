@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
-import { getComplaintById, advanceComplaintStatus, getAllComplaints } from '../services/storageService';
+import { getComplaintById, advanceComplaintStatus, getAllComplaints, updateComplaintGeoLocation } from '../services/storageService';
+import { GeoTagPicker } from '../components/GeoTagPicker';
 import { ComplaintData } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
 import { Timeline } from '../components/Timeline';
+import { GeoTagDisplay } from '../components/GeoTagDisplay';
 import { 
   Search, 
   Building2, 
@@ -25,6 +27,7 @@ export const TrackComplaintPage: React.FC = () => {
   const [complaint, setComplaint] = useState<ComplaintData | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
   const [allList, setAllList] = useState<ComplaintData[]>([]);
+  const [showGeoEditor, setShowGeoEditor] = useState(false);
 
   useEffect(() => {
     setAllList(getAllComplaints());
@@ -215,6 +218,60 @@ export const TrackComplaintPage: React.FC = () => {
                   "{complaint.citizenDescription}"
                 </p>
               </div>
+
+              {/* Geotag Map + Retro Geotag Editor */}
+              <GeoTagDisplay geo={complaint.geoLocation} />
+              {!complaint.geoLocation ? (
+                <div className="space-y-3">
+                  {!showGeoEditor ? (
+                    <button onClick={() => setShowGeoEditor(true)} className="w-full inline-flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-xs hover:bg-amber-500/15">
+                      <MapPin className="w-4 h-4" />
+                      <span>Add GPS Geotag Now — Pin to Government Map</span>
+                    </button>
+                  ) : (
+                    <div className="space-y-3 p-4 rounded-2xl bg-slate-950 border border-amber-500/30">
+                      <p className="text-xs font-bold text-amber-400">Retroactively geotag this complaint (will appear on Gov Unified Map)</p>
+                      <GeoTagPicker
+                        value={complaint.geoLocation || null}
+                        onChange={geo => {
+                          if (geo) {
+                            const updated = updateComplaintGeoLocation(complaint.id, geo);
+                            if (updated) {
+                              setComplaint(updated);
+                              setAllList(getAllComplaints());
+                              setShowGeoEditor(false);
+                            }
+                          }
+                        }}
+                      />
+                      <button onClick={() => setShowGeoEditor(false)} className="text-xs text-slate-400 hover:text-white">Cancel</button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowGeoEditor(v => !v)}
+                  className="text-xs font-bold text-slate-400 hover:text-amber-400 flex items-center space-x-1"
+                >
+                  <MapPin className="w-3 h-3" />
+                  <span>{showGeoEditor ? 'Hide geotag editor' : 'Update geotag / correct pin'}</span>
+                </button>
+              )}
+              {showGeoEditor && complaint.geoLocation && (
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-700">
+                  <GeoTagPicker
+                    value={complaint.geoLocation}
+                    onChange={geo => {
+                      if (geo) {
+                        const updated = updateComplaintGeoLocation(complaint.id, geo);
+                        if (updated) setComplaint(updated);
+                      } else {
+                        // clear not allowed via this flow; keep
+                      }
+                    }}
+                  />
+                </div>
+              )}
 
               {/* Interactive Timeline Component */}
               <div className="pt-4 border-t border-slate-800">
